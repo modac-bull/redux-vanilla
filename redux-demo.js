@@ -8,9 +8,19 @@ const redux = require("redux");
 // 리듀서 함수는 순수 함수여야 한다.
 // 순수 함수: 이전 상태와 액션 객체를 받아서 새로운 상태를 반환하는 함수
 const counterReducer = (state = { counter: 0 }, action) => {
-  return {
-    counter: state.counter + 1,
-  };
+  if (action.type === "increment") {
+    return {
+      counter: state.counter + 1,
+    };
+  }
+
+  if (action.type === "decrement") {
+    return {
+      counter: state.counter - 1,
+    };
+  }
+
+  return state;
 };
 
 // Redux Store
@@ -26,3 +36,4 @@ store.subscribe(counterSubscriber);
 
 // 액션 디스패치
 store.dispatch({ type: "increment" });
+store.dispatch({ type: "decrement" });
